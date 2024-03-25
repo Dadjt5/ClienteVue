@@ -65,6 +65,7 @@
           await fetch('https://django-local-library-rc8t.onrender.com/api/v1/personas/'+persona_id+'/', {
             method: "DELETE"
           });
+          store.decrement();
           personas.value= personas.value.filter(u => u.id !== persona_id);
           } catch (error) {
             console.error(error);
@@ -90,7 +91,7 @@
       onMounted(() => {
         listadoPersonas();
       });
-
+      
       return {
         personas,
         agregarPersona,
