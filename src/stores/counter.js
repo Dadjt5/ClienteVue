@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {pinia} from 'pinia'
+import { createPinia } from 'pinia'
 
 const COUNTER_LOCAL_STORAGE_KEY = 'localCounter'
 const getCount = () => {
@@ -28,5 +28,6 @@ export const useCounterStore = defineStore('counter', {
 })
 
 if (localStorage.getItem('state')) {
+    const pinia = createPinia()
     pinia.state.value = JSON.parse(localStorage.getItem('state'))
 }
