@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <h1>Personas</h1>
+        <p>Count is {{ store.count }}</p>
       </div>
     </div>
     <div class="row">
@@ -17,6 +18,7 @@
 <script>
   import TablaPersonas from '@/components/TablaPersonas.vue'
   import FormularioPersona from '@/components/FormularioPersona.vue'
+  import { useCounterStore } from '@/stores/counter';
   import { ref, onMounted } from 'vue';
 
   export default {
@@ -26,6 +28,7 @@
       FormularioPersona,
     },
     setup() {
+      const store = useCounterStore();
       const personas = ref([]);
       const listadoPersonas = async () => {
         // Metodo para obtener un listado de personas
@@ -48,6 +51,7 @@
 
           const personaCreada = await response.json();
           personas.value = [...personas.value, personaCreada];
+          store.increment();
         } catch (error) {
           console.error(error);
         }
@@ -90,6 +94,7 @@
         agregarPersona,
         eliminarPersona,
         actualizarPersona,
+        store,
       };
     },
   }
